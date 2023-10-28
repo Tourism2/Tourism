@@ -1,0 +1,9 @@
+/* src/styles/tailwind.css */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* You can also add your custom styles here */
+.nav, .hero-text, .foot, .text{
+  font-family: 'Righteous', sans-serif;
+}
