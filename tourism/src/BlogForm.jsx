@@ -7,42 +7,18 @@ const BlogForm = () => {
     city: "",
     description: "",
     author: "",
-    featuredImage: null,
+    image: "",
   });
 
-  const API_URL = "http://localhost:3000/blogs"; // Replace with your API URL
-
-  const postFormData = async (formData) => {
-    try {
-      const response = await axios.post(`${API_URL}`, formData);
-      return response.data;
-    } catch (error) {
-      console.error("Error posting data:", error);
-      throw error;
-    }
-  };
+  const API_URL = "http://localhost:5000/blogpost";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formDataToSend = new FormData();
-    formDataToSend.append("title", formData.title);
-    formDataToSend.append("city", formData.city);
-    formDataToSend.append("description", formData.description);
-    formDataToSend.append("author", formData.author);
-    formDataToSend.append("featuredImage", formData.featuredImage);
 
     try {
-      const response = await postFormData(formDataToSend);
+      const response = await axios.post(`${API_URL}`, formData);
       console.log("Data successfully posted:", response);
-
-      setFormData({
-        title: "",
-        city: "",
-        description: "",
-        author: "",
-        featuredImage: null,
-      });
     } catch (error) {
       console.error("Error posting data:", error);
     }
@@ -50,15 +26,8 @@ const BlogForm = () => {
 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
-    const updatedFormData = { ...formData };
+    setFormData({ ...formData, [name]: value });
 
-    if (name === "featuredImage") {
-      updatedFormData[name] = files[0];
-    } else {
-      updatedFormData[name] = value;
-    }
-
-    setFormData(updatedFormData);
   };
 
   return (
@@ -104,15 +73,15 @@ const BlogForm = () => {
         </div>
         <div className="mb-4">
           <label
-            htmlFor="content"
+            htmlFor="description"
             className="block text-sm font-medium text-gray-700"
           >
             Content
           </label>
           <textarea
-            id="content"
-            name="content"
-            value={formData.content}
+            id="description"
+            name="description"
+            value={formData.description}
             onChange={handleInputChange}
             rows="4"
             className="w-full px-3 py-2 placeholder-gray-300 border rounded-md focus:outline-none focus:ring focus:ring-indigo-200"
@@ -155,21 +124,12 @@ const BlogForm = () => {
         </div>
         <button
           type="submit"
-          className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md font-medium"
+          className="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-md font-medium"
         >
           Create Blog
         </button>
       </form>
-      <div className="w-1/3 p-4">
-        {/* Display a preview of the selected image */}
-        {formData.featuredImage && (
-          <img
-            src={URL.createObjectURL(formData.featuredImage)}
-            alt="Featured Image Preview"
-            className="w-full h-auto max-h-96 rounded-md"
-          />
-        )}
-      </div>
+      <div className="w-1/3 p-4"></div>
     </div>
   );
 };
