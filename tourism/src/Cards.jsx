@@ -60,7 +60,7 @@ const BlogList = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/blogs") // Replace with your JSON server URL
+      .get("http://localhost:5000") // Replace with your JSON server URL
       .then((response) => {
         setBlogs(response.data);
       })
@@ -68,7 +68,7 @@ const BlogList = () => {
         console.error("Error fetching data:", error);
       });
   }, []);
-
+      // console.log(BlogList);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {blogs.map((blog) => (

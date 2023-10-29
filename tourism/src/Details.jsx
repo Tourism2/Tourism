@@ -8,15 +8,15 @@ const BlogDetails = () => {
   console.log(id);
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/blogs/${id}`) // Remove the extra curly braces
+      .get(`http://localhost:5000/blog/${id}`) 
       .then((response) => {
-        setBlog(response.data);
+        setBlog(response.data[0]);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   }, []);
-
+        console.log(blogg);
   return (
     <div>
       <img
@@ -33,6 +33,7 @@ const BlogDetails = () => {
         <p className="text-black font-semibold ml-40">Author: {blogg.author}</p>
       </div>
     </div>
+    
   );
 };
 
